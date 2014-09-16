@@ -1,0 +1,1 @@
+angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies']);
