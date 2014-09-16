@@ -16,12 +16,12 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies'])
     
     
 })
-.run(function($rootScope, $http, Auth, $location){
+.run(function($rootScope, $http, Auth, $state){
     
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
         if(!!toState.requireLogin && !Auth.isAuthenticated()){
             event.preventDefault();
-            $location.url('/login');
+            $state.go('login');
         }
 
     });
