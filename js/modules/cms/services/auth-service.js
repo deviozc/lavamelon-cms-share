@@ -1,9 +1,9 @@
 /**
  * Auth Service
  */
-angular.module('CMS').factory('Auth', ['$q', '$timeout', '$http', '$location', '$rootScope', 'sharedConstants', AuthFactory]);
+angular.module('CMS').factory('Auth', ['$q', '$timeout', '$http', '$state', '$rootScope', 'sharedConstants', AuthFactory]);
 
-function AuthFactory($q, $timeout, $http, $location, $rootScope, sharedConstants) {
+function AuthFactory($q, $timeout, $http, $state, $rootScope, sharedConstants) {
     var userProfile = {},
         authenticated = false;
     
@@ -27,12 +27,30 @@ function AuthFactory($q, $timeout, $http, $location, $rootScope, sharedConstants
 			_setUserProfile({});
 			$timeout(function(){deferred.reject();}, 0);
             $rootScope.$broadcast(sharedConstants.LOGIN_FAIL);
-			$location.url('/login');
+			$state.go('login');
         }
       })
       .error(function(data, status, headers, config){
+          $timeout(function(){deferred.reject();}, 0);
           $rootScope.$broadcast(sharedConstants.LOGIN_FAIL);
-          $location.url('/login');
+         $state.go('login');
+      });
+
+      return deferred.promise;
+    };
+    
+    var _logout = function(){
+        var deferred = $q.defer();
+
+      // Make an AJAX call to check if the user is logged in
+      $http.post(sharedConstants.LOG_OUT)
+      .success(function(){
+        $rootScope.$broadcast(sharedConstants.LOGOUT_SUCCESS);
+        $timeout(deferred.resolve, 0);
+        authenticated = false;
+        userProfile = {};
+        $state.go('login');
+        
       });
 
       return deferred.promise;
@@ -53,7 +71,8 @@ function AuthFactory($q, $timeout, $http, $location, $rootScope, sharedConstants
     return{
         login : _login,
         getUserProfile: _getUserProfile,
-        isAuthenticated: _isAuthenticated
+        isAuthenticated: _isAuthenticated,
+        logout: _logout
     };
    
 }
