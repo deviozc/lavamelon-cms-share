@@ -13,3 +13,8 @@ ul.sidebar .sidebar-title {
 	/* Sidebar title text colour */
 	color: #627cb7;
 }
+
+
+div.login-form{
+    padding-top:50px;
+}
