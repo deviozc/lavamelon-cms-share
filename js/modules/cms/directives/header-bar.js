@@ -2,26 +2,25 @@
  * shared header bar Directive
  * @see http://tobiasahlin.com/spinkit/
  */
-angular.module('CMS').directive('headerBar', ['Auth', '$state', headerBar]);
+angular.module('CMS').directive('headerBar', ['Auth', '$state','$rootScope', headerBar]);
 
-function headerBar (Auth, $state) {
+function headerBar (Auth, $state, $rootScope) {
     var directive = {
         restrict: 'AE',
         templateUrl: 'assets/shared/js/modules/cms/directives/partials/header-bar.html',
         link: function(scope){
-            if(Auth.isAuthenticated()){
-                scope.user = Auth.getUserProfile();
+            if(Auth.currentUser){
+                scope.user = Auth.currentUser;
             }
             else{
                 //$state.go('login');
             }
             
             scope.logout = function(){
-                Auth.logout();
-                console.log('test');
+                $rootScope.logout();
             };
         }
         
     };
     return directive;
-};
+}

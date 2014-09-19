@@ -2,9 +2,12 @@
  * Master Controller
  */
 angular.module('CMS')
-    .controller('MasterCtrl', ['$scope', '$cookieStore', MasterCtrl]);
+    .controller('MasterCtrl', ['$scope', '$cookieStore', 'User', 'Auth', '$rootScope',  MasterCtrl]);
 
-function MasterCtrl($scope, $cookieStore) {
+function MasterCtrl($scope, $cookieStore, User, Auth, $rootScope) {
+    
+    Auth.ensureHasCurrentUser(User);
+    $rootScope.currentUser = Auth.currentUser;
     /**
      * Sidebar Toggle & Cookie Control
      *

@@ -1,78 +1,26 @@
 /**
  * Auth Service
  */
-angular.module('CMS').factory('Auth', ['$q', '$timeout', '$http', '$state', '$rootScope', 'sharedConstants', AuthFactory]);
+angular.module('CMS').factory('Auth', [AuthFactory]);
 
 function AuthFactory($q, $timeout, $http, $state, $rootScope, sharedConstants) {
-    var userProfile = {},
-        authenticated = false;
-    
-    var _login = function(data){
-        //       // Initialize a new promise
-      var deferred = $q.defer();
+    return {
+      currentUser: null,
 
-      // Make an AJAX call to check if the user is logged in
-      $http.post(sharedConstants.LOG_IN, data)
-      .success(function(user){
-        // Authenticated
-        if (user !== '0'){
-            _setUserProfile(user);
-            $rootScope.$broadcast(sharedConstants.LOGIN_SUCCESS, _getUserProfile());
-            $timeout(deferred.resolve, 0);
+      // Note: we can't make the User a dependency of AppAuth
+      // because that would create a circular dependency
+      //   AppAuth <- $http <- $resource <- LoopBackResource <- User <- AppAuth
+      ensureHasCurrentUser: function(User) {
+        if (this.currentUser) {
+          console.log('Using cached current user.');
+        } else {
+          console.log('Fetching current user from the server.');
+          this.currentUser = User.getCurrent(function() {
+            // success
+          }, function(response) {
+            console.log('User.getCurrent() err', arguments);
+          });
         }
-          
-
-        // Not Authenticated
-        else {
-			_setUserProfile({});
-			$timeout(function(){deferred.reject();}, 0);
-            $rootScope.$broadcast(sharedConstants.LOGIN_FAIL);
-			$state.go('login');
-        }
-      })
-      .error(function(data, status, headers, config){
-          $timeout(function(){deferred.reject();}, 0);
-          $rootScope.$broadcast(sharedConstants.LOGIN_FAIL);
-         $state.go('login');
-      });
-
-      return deferred.promise;
+      }
     };
-    
-    var _logout = function(){
-        var deferred = $q.defer();
-
-      // Make an AJAX call to check if the user is logged in
-      $http.post(sharedConstants.LOG_OUT)
-      .success(function(){
-        $rootScope.$broadcast(sharedConstants.LOGOUT_SUCCESS);
-        $timeout(deferred.resolve, 0);
-        authenticated = false;
-        userProfile = {};
-        $state.go('login');
-        
-      });
-
-      return deferred.promise;
-    };
-    
-    var _setUserProfile = function(user){
-        
-    };
-    
-    var _getUserProfile = function(){
-        return userProfile;
-    };
-    
-    var _isAuthenticated = function(){
-        return authenticated;
-    };
-    
-    return{
-        login : _login,
-        getUserProfile: _getUserProfile,
-        isAuthenticated: _isAuthenticated,
-        logout: _logout
-    };
-   
 }
