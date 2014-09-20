@@ -13,6 +13,10 @@ var urlBase = "/api";
  *
  */
 var module = angular.module("lbServices", ['ngResource']);
+/**
+ * Role factory
+ * 
+  */
 module.factory(
   "Role",
   ['LoopBackResource', function(Resource) {
@@ -23,7 +27,12 @@ module.factory(
        "create": {
           url: urlBase + "/roles",
           method: "POST",
-        }
+        },
+       "find": {
+          url: urlBase + "/roles",
+          method: "GET",
+          isArray: true,
+        },
       });
   }]),
        
