@@ -13,7 +13,20 @@ var urlBase = "/api";
  *
  */
 var module = angular.module("lbServices", ['ngResource']);
-
+module.factory(
+  "Role",
+  ['LoopBackResource', function(Resource) {
+    return Resource(
+      urlBase + "/roles/:id",
+      { 'id': '@id' },
+      {
+       "create": {
+          url: urlBase + "/roles",
+          method: "POST",
+        }
+      });
+  }]),
+       
 /**
  * @ngdoc object
  * @name lbServices.User

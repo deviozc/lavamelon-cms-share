@@ -1,0 +1,28 @@
+<div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add new role mapping</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" ng-submit="mapRole()">
+                            <fieldset>
+                                <div class="form-group">
+                                    <p>User</p>
+                                    <select ng-model="rolemapping.user" ng-options="user.email for user in users"></select>
+                                </div>
+                                <div class="form-group">
+                                    <p>Role</p>
+                                    <select ng-model="rolemapping.role" ng-options="role.name for role in roles"></select>
+                                </div>
+
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input type="submit" id="submit" value="Submit" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
