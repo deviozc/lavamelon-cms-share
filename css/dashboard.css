@@ -275,7 +275,7 @@
     content: '';
   }
   .row.header .user > .item ul.dropdown-menu .dropdown-header {
-    text-align: center;
+    text-align: left;
   }
   .row.header .user > .item ul.dropdown-menu li.link {
     text-align: left;
