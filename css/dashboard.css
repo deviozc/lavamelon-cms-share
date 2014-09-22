@@ -203,8 +203,8 @@
     padding-right: 0;
   }
   .row.header .meta .page {
-    font-size: 17px;
-    padding-top: 11px;
+    font-size: 20px;
+    padding-top: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

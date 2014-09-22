@@ -8,6 +8,7 @@ function MasterCtrl($scope, $cookieStore, User, Auth, $rootScope) {
     
     Auth.ensureHasCurrentUser(User);
     $rootScope.currentUser = Auth.currentUser;
+    console.log($rootScope.currentUser);
     /**
      * Sidebar Toggle & Cookie Control
      *

@@ -1,24 +1,20 @@
 /**
  * Master Controller
  */
-angular.module('CMS').controller('LoginCtrl', ['$scope', 'User', '$location', 'Auth', LoginCtrl]);
+angular.module('CMS').controller('LoginCtrl', ['$scope', 'User', '$location', 'Auth', '$state', LoginCtrl]);
 
-function LoginCtrl($scope, User, $location, Auth) {
+function LoginCtrl($scope, User, $location, Auth, $state) {
     $scope.credentials = {
-        "email": "xingbo828@gmail.com",
-        "password": "1234"
+        "email": "test@test.com",
+        "password": "test"
     };
     $scope.login = function () {
         $scope.loginResult = User.login({
             include: 'user',
             rememberMe: true
         }, $scope.credentials, function (data) {
-            //var next = $location.nextAfterLogin || '/';
-            //$location.nextAfterLogin = null;
-            //AppAuth.currentUser = $scope.loginResult.user;
-            //$location.path(next);
             Auth.currentUser = $scope.loginResult.user;
-            console.log(Auth.currentUser);
+            $state.go('main.dashboard');
         }, function (res) {
             $scope.loginError = res.data.error;
         });

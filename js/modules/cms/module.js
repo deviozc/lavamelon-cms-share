@@ -23,12 +23,18 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toa
 			url: '/login',
             templateUrl: 'assets/shared/pages/login.html',
 			controller: 'LoginCtrl',
+            data: {
+                title: 'Login'  
+            },
 			requireLogin: false
 		})
 		.state('main.newUser', {
 			url: 'access/newuser',
             templateUrl: 'assets/shared/pages/access_control/add_user.html',
             controller: 'AccessCtrl',
+			data: {
+                title: 'Access Control'  
+            },
             requireLogin: true,
 			adminOnly:true
 		})
@@ -36,12 +42,18 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toa
 			url: 'access/newrole',
             templateUrl: 'assets/shared/pages/access_control/add_role.html',
             controller: 'AccessCtrl',
+            data: {
+                title: 'Access Control'  
+            },
             requireLogin: true,
 			adminOnly: true
 		})
 		.state('main.roleMapping', {
 			url: 'access/rolemapping',
             templateUrl: 'assets/shared/pages/access_control/add_role_mapping.html',
+            data: {
+                title: 'Access Control'  
+            },
 			resolve: {
                 fetchedUsers: ['User', function(User){
                     return User.find();
@@ -63,6 +75,10 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toa
             $state.go('login');
         }
 
+    });
+    
+    $rootScope.$on('$stateChangeSuccess', function(event, toState){
+      $rootScope.pageTitle = toState.data.title;
     });
     
     // Logout function is available in any pages
