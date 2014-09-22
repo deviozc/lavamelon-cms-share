@@ -2,11 +2,11 @@
  * Master Controller
  */
 angular.module('CMS')
-.controller('ArticleListCtrl', ['$scope', '$state', 'Article', ArticleListCtrl])
+.controller('ArticleListCtrl', ['$scope', '$state', 'Article', 'toaster', ArticleListCtrl])
 .controller('ArticleCreateCtrl', ['$scope', '$state', 'Article', 'templates', 'toaster', ArticleCreateCtrl])
-.controller('ArticleEditCtrl', ['$scope', '$state', 'Article','articleToBeUpdated','templates', ArticleEditCtrl]);
+.controller('ArticleEditCtrl', ['$scope', '$state', 'Article','articleToBeUpdated','templates', 'toaster', ArticleEditCtrl]);
 
-function ArticleListCtrl($scope, $state, Article) {
+function ArticleListCtrl($scope, $state, Article, toaster) {
     var fileter = $state.current.data.articleFilter;
     $scope.doneLoading = false;
 	$scope.articles =  Article.find(function(data){
@@ -18,6 +18,7 @@ function ArticleListCtrl($scope, $state, Article) {
     
     $scope.delete = function(article){
         article.$delete().then(function(){
+            toaster.pop('success', 'Deleted', article.en.title);
             $scope.articles =  Article.find();
         });
     };
@@ -43,11 +44,13 @@ function ArticleCreateCtrl($scope, $state, Article, templates, toaster) {
     
 }
 
-function ArticleEditCtrl($scope, $state, Article, articleToBeUpdated, templates) {
+function ArticleEditCtrl($scope, $state, Article, articleToBeUpdated, templates, toaster) {
     $scope.article = articleToBeUpdated;
     $scope.templates = templates;
     $scope.update = function(){
-        console.log($scope.article);
-        $scope.article.$update();
+
+        $scope.article.$update().then(function(article){
+            toaster.pop('success', 'Updated', article.en.title + ' has been updated.');
+        });
     };
 }
