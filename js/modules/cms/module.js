@@ -1,4 +1,4 @@
-angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','lbServices'])
+angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toaster','lbServices', 'textAngular'])
 .config(['$locationProvider', '$httpProvider', function ($locationProvider, $httpProvider) {
     $httpProvider.interceptors.push(['$q', '$location', 'Auth', function($q, $location, Auth) {
          return {
