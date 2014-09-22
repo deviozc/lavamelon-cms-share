@@ -48,8 +48,8 @@ function ArticleEditCtrl($scope, $state, Article, articleToBeUpdated, templates,
     $scope.article = articleToBeUpdated;
     $scope.templates = templates;
     $scope.update = function(){
-
         $scope.article.$update().then(function(article){
+            $state.go($state.current.data.parent);
             toaster.pop('success', 'Updated', article.en.title + ' has been updated.');
         });
     };
