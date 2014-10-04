@@ -2,15 +2,14 @@
  * Master Controller
  */
 angular.module('CMS')
-.controller('ArticleListCtrl', ['$scope', '$state', 'Article', 'toaster', ArticleListCtrl])
-.controller('ArticleCreateCtrl', ['$scope', '$state', 'Article', 'templates', 'toaster', ArticleCreateCtrl])
+.controller('ArticleListCtrl', ['$scope', '$state', 'Article', 'toaster','Auth', ArticleListCtrl])
+.controller('ArticleCreateCtrl', ['$scope', '$state', 'Article', 'templates', 'toaster','Auth', ArticleCreateCtrl])
 .controller('ArticleEditCtrl', ['$scope', '$state', 'Article','articleToBeUpdated','templates', 'toaster', ArticleEditCtrl]);
 
 function ArticleListCtrl($scope, $state, Article, toaster) {
     var fileter = $state.current.data.articleFilter;
     $scope.doneLoading = false;
 	$scope.articles =  Article.find(function(data){
-        console.log('done calling');
         $scope.doneLoading = true;
     }, function(err){
         console.log('error');
@@ -25,12 +24,12 @@ function ArticleListCtrl($scope, $state, Article, toaster) {
 
 }
 
-function ArticleCreateCtrl($scope, $state, Article, templates, toaster) {
+function ArticleCreateCtrl($scope, $state, Article, templates, toaster, Auth) {
     var fileter = $state.current.data.articleFilter;
     $scope.templates = templates;
 	$scope.article = {
-        section: fileter,
-        date: new Date()
+        domain: Auth.getCurrentUser().sites[0].domain,
+        section: fileter
     };
     $scope.add = function () {
         Article.create($scope.article, function (data) {
@@ -48,7 +47,7 @@ function ArticleEditCtrl($scope, $state, Article, articleToBeUpdated, templates,
     $scope.article = articleToBeUpdated;
     $scope.templates = templates;
     $scope.update = function(){
-        $scope.article.$update().then(function(article){
+        $scope.article.$update({Id:$scope.article.id}).then(function(article){
             $state.go($state.current.data.parent);
             toaster.pop('success', 'Updated', article.en.title + ' has been updated.');
         });

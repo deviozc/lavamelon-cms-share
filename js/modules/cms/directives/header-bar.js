@@ -9,13 +9,12 @@ function headerBar (Auth, $state, $rootScope) {
         restrict: 'AE',
         templateUrl: 'assets/shared/js/modules/cms/directives/partials/header-bar.html',
         link: function(scope){
-            if(Auth.currentUser){
-                scope.user = Auth.currentUser;
+            if(!!Auth.getCurrentUser()){
+                scope.user = Auth.getCurrentUser();
             }
             else{
                 //$state.go('login');
             }
-            
             scope.logout = function(){
                 $rootScope.logout();
             };

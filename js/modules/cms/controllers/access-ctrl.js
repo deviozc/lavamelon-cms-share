@@ -1,9 +1,9 @@
 /**
  * Master Controller
  */
-angular.module('CMS').controller('AccessCtrl', ['$scope', 'User', '$state', 'Auth', 'Role', 'fetchedUsers', 'fetchedRoles', AccessCtrl]);
+angular.module('CMS').controller('AccessCtrl', ['$scope', 'User', '$state', 'Role', 'fetchedUsers', 'fetchedRoles', AccessCtrl]);
 
-function AccessCtrl($scope, User, $state, Auth, Role, fetchedUsers, fetchedRoles) {
+function AccessCtrl($scope, User, $state, Role, fetchedUsers, fetchedRoles) {
     $scope.register = function () {
         $scope.user = User.save($scope.registration, function (data) {
             console.log('registered');

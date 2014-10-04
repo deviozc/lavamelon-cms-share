@@ -1,10 +1,10 @@
-angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toaster','lbServices', 'textAngular','angular-loading-bar'])
+angular.module('CMS', ['ui.bootstrap', 'ui.router','ngResource', 'ngCookies','ngAnimate','toaster', 'textAngular','angular-loading-bar'])
 .config(['$locationProvider', '$httpProvider', function ($locationProvider, $httpProvider) {
     $httpProvider.interceptors.push(['$q', '$location', 'Auth', function($q, $location, Auth) {
          return {
 			'responseError': function(response) {
                 if (response.status === 401){
-                    Auth.currentUser = null;
+                    Auth.setCurrentUser(null);
 					//$location.url('/login');
                 }
 				return $q.reject(response);
@@ -67,10 +67,10 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toa
 			adminOnly: true
 		});
 }])
-.run(['$rootScope', '$http', 'Auth', '$state', 'User', function($rootScope, $http, Auth, $state, User){
+.run(['$rootScope', 'Auth', '$state', 'User', function($rootScope, Auth, $state, User){
     
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-        if(!!toState.requireLogin && !Auth.currentUser){
+        if(!!toState.requireLogin && !Auth.getCurrentUser()){
             event.preventDefault();
             $state.go('login');
         }
@@ -80,13 +80,13 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router', 'ngCookies','ngAnimate','toa
     $rootScope.$on('$stateChangeSuccess', function(event, toState){
       $rootScope.pageTitle = toState.data.title;
     });
-    
+
     // Logout function is available in any pages
     $rootScope.logout = function(){
       User.logout(function() {
-        $rootScope.currentUser = null;
-        Auth.currentUser = null;
+        Auth.setCurrentUser(null);
         $state.go('login');
       });
     };
+    
   }]);

@@ -5,18 +5,17 @@ angular.module('CMS').controller('LoginCtrl', ['$scope', 'User', '$location', 'A
 
 function LoginCtrl($scope, User, $location, Auth, $state) {
     $scope.credentials = {
-        "email": "test@test.com",
-        "password": "test"
+        "email": "xingbo828@gmail.com",
+        "password": "123456"
     };
     $scope.login = function () {
-        $scope.loginResult = User.login({
-            include: 'user',
-            rememberMe: true
-        }, $scope.credentials, function (data) {
-            Auth.currentUser = $scope.loginResult.user;
+        $scope.loginResult = User.login($scope.credentials)
+        .$promise.then(function(user){
+            Auth.setCurrentUser(user);
             $state.go('main.dashboard');
-        }, function (res) {
-            $scope.loginError = res.data.error;
+            console.log(user);
         });
+        
+        //console.log($scope.loginResult);
     };
 }
