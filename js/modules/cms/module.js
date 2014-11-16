@@ -1,11 +1,21 @@
-angular.module('CMS', ['ui.bootstrap', 'ui.router','ngResource', 'ngCookies','ngAnimate','toaster', 'textAngular','angular-loading-bar'])
+angular.module('CMS', [
+    'ui.bootstrap', 
+    'ui.router',
+    'ngResource', 
+    'ngCookies',
+    'ngAnimate',
+    'toaster', 
+    'textAngular',
+    'angular-loading-bar',
+    'ngUpload'
+    ])
 .config(['$locationProvider', '$httpProvider', function ($locationProvider, $httpProvider) {
     $httpProvider.interceptors.push(['$q', '$location', 'Auth', function($q, $location, Auth) {
          return {
 			'responseError': function(response) {
-                if (response.status === 401){
+                if (response.status === 401 || response.status===403){
                     Auth.setCurrentUser(null);
-					//$location.url('/login');
+					$location.url('/login');
                 }
 				return $q.reject(response);
 			}
@@ -28,51 +38,63 @@ angular.module('CMS', ['ui.bootstrap', 'ui.router','ngResource', 'ngCookies','ng
             },
 			requireLogin: false
 		})
+        .state('main.imageManager', {
+            url: 'image-manager',
+            templateUrl: 'assets/shared/pages/image-manager.html',
+            controller: 'imageManagerCtrl',
+            data: {
+                title: 'Image Manager'  
+            },
+            requireLogin: true
+        })
 		.state('main.newUser', {
 			url: 'access/newuser',
             templateUrl: 'assets/shared/pages/access_control/add_user.html',
-            controller: 'AccessCtrl',
+            controller: 'AccessAddUserCtrl',
 			data: {
                 title: 'Access Control'  
             },
             requireLogin: true,
 			adminOnly:true
 		})
-		.state('main.newRole', {
-			url: 'access/newrole',
-            templateUrl: 'assets/shared/pages/access_control/add_role.html',
-            controller: 'AccessCtrl',
+		.state('main.newSite', {
+			url: 'access/newsite',
+            templateUrl: 'assets/shared/pages/access_control/add_site.html',
+            controller: 'AccessAddSiteCtrl',
             data: {
                 title: 'Access Control'  
             },
             requireLogin: true,
 			adminOnly: true
 		})
-		.state('main.roleMapping', {
-			url: 'access/rolemapping',
-            templateUrl: 'assets/shared/pages/access_control/add_role_mapping.html',
+		.state('main.siteMapping', {
+			url: 'access/sitemapping',
+            templateUrl: 'assets/shared/pages/access_control/site_mapping.html',
             data: {
                 title: 'Access Control'  
             },
 			resolve: {
                 fetchedUsers: ['User', function(User){
-                    return User.find();
+                    return User.query();
                 }],
-                fetchedRoles: function(){
-                    return 'test2';
-                }
+                fetchedSites: ['Site',function(Site){
+                    return Site.query();
+                }]
 			},
-            controller: 'AccessCtrl',
+            controller: 'AccessSiteMapCtrl',
             requireLogin: true,
 			adminOnly: true
 		});
 }])
 .run(['$rootScope', 'Auth', '$state', 'User', function($rootScope, Auth, $state, User){
-    
     $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
         if(!!toState.requireLogin && !Auth.getCurrentUser()){
             event.preventDefault();
-            $state.go('login');
+            Auth.ensureHasCurrentUser(User).then(function(){
+                $state.go(toState);
+            }, function(){
+                $state.go('login');
+            });
         }
 
     });

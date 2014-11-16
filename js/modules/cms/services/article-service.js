@@ -12,7 +12,7 @@ angular.module('CMS')
                     "find": {
                         url: "/articles",
                         method: "GET",
-                        isArray: true,
+                        isArray: true
                     },
                     "update": {
                         method: "PUT",

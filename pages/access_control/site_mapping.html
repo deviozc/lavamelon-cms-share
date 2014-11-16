@@ -6,19 +6,23 @@
                         <h3 class="panel-title">Add new role mapping</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" ng-submit="mapRole()">
+                        <form role="form" ng-submit="mapSite()">
                             <fieldset>
                                 <div class="form-group">
-                                    <p>User</p>
-                                    <select ng-model="rolemapping.user" ng-options="user.email for user in users"></select>
+                                    <p>Users</p>
+                                    <select ng-model="siteMapping.userId" ng-options="user.id as user.fullName for user in users">
+                                        <option value=''>Select user</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <p>Role</p>
-                                    <select ng-model="rolemapping.role" ng-options="role.name for role in roles"></select>
+                                    <p>Sites</p>
+                                    <select ng-model="siteMapping.siteId" ng-options="site.id as site.domain for site in sites">
+                                    <option value=''>Select site</option>
+                                    </select>
                                 </div>
 
                                 <!-- Change this to a button or input when using this as a form -->
-                                <input type="submit" id="submit" value="Submit" />
+                                <input type="submit" id="submit" class="btn btn-primary btn-lg center-block" value="Submit" />
                             </fieldset>
                         </form>
                     </div>

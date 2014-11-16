@@ -6,7 +6,6 @@ angular.module('CMS')
 
 function MasterCtrl($scope, $cookieStore, User, Auth, $rootScope) {
     
-    Auth.ensureHasCurrentUser(User);
     /**
      * Sidebar Toggle & Cookie Control
      *
@@ -21,7 +20,7 @@ function MasterCtrl($scope, $cookieStore, User, Auth, $rootScope) {
         {
             if(angular.isDefined($cookieStore.get('toggle')))
             {
-                if($cookieStore.get('toggle') == false)
+                if($cookieStore.get('toggle') === false)
                 {
                     $scope.toggle = false;
                 }            

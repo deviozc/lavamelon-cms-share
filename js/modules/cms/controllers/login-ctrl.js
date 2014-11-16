@@ -13,7 +13,6 @@ function LoginCtrl($scope, User, $location, Auth, $state) {
         .$promise.then(function(user){
             Auth.setCurrentUser(user);
             $state.go('main.dashboard');
-            console.log(user);
         });
         
         //console.log($scope.loginResult);
