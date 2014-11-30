@@ -1,16 +1,16 @@
 angular.module('CMS')
-    .factory('Article', ['$resource',
-        function($resource) {
+    .factory('Article', ['$resource','sharedConstants',
+        function($resource, sharedConstants) {
             return $resource(
-                "/articles/:Id", {
+                sharedConstants.ROOT_ENDPOINT + "/articles/:Id", {
                     Id: "@Id"
                 }, {
                     "create": {
-                        url: "/articles",
+                        url: sharedConstants.ROOT_ENDPOINT + "/articles",
                         method: "POST",
                     },
                     "find": {
-                        url: "/articles",
+                        url: sharedConstants.ROOT_ENDPOINT + "/articles",
                         method: "GET",
                         isArray: true
                     },

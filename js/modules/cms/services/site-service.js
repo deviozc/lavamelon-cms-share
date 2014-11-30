@@ -1,8 +1,8 @@
 angular.module('CMS')
-    .factory('Site', ['$resource',
-        function($resource) {
+    .factory('Site', ['$resource','sharedConstants',
+        function($resource, sharedConstants) {
             return $resource(
-                "/sites/:Id", {
+                sharedConstants.ROOT_ENDPOINT + "/sites/:Id", {
                     Id: "@Id"
                 },
                 {

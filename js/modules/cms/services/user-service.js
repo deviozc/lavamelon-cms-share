@@ -1,27 +1,27 @@
 angular.module('CMS')
-    .factory('User', ['$resource',
-        function($resource) {
+    .factory('User', ['$resource','sharedConstants',
+        function($resource, sharedConstants) {
             return $resource(
-                "/users/:Id", {
+                sharedConstants.ROOT_ENDPOINT + "/users/:Id", {
                     Id: "@Id",
                     siteId: '@siteId'
                 }, {
                     "login": {
                         'method': 'POST',
-                        'url': '/users/login'
+                        'url': sharedConstants.ROOT_ENDPOINT + '/users/login'
                     },
                     "me": {
                         'method': 'GET',
-                        'url': '/users/me'
+                        'url': sharedConstants.ROOT_ENDPOINT + '/users/me'
                     },
                     "logout": {
                         'method': 'POST',
-                        'url': '/users/logout'
+                        'url': sharedConstants.ROOT_ENDPOINT + '/users/logout'
                     },
 
                     'mapSite': {
                         'method': 'POST',
-                        'url': '/users/:userId/sites/:siteId',
+                        'url': sharedConstants.ROOT_ENDPOINT + '/users/:userId/sites/:siteId',
                         'params': {
                             userId: '@userId',
                             siteId: '@siteId'

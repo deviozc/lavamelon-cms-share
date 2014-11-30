@@ -1,13 +1,13 @@
 angular.module('CMS')
-    .factory('Image', ['$resource',
-        function($resource) {
+    .factory('Image', ['$resource','sharedConstants',
+        function($resource, sharedConstants) {
             return $resource(
-                "/sites/:domain/images", {
+                sharedConstants.ROOT_ENDPOINT + "/sites/:domain/images", {
                     domain: "@domain"
                 }, {
                     'deleteImage': {
                         'method': 'DELETE',
-                        'url': '/files/:fileId',
+                        'url': sharedConstants.ROOT_ENDPOINT + '/files/:fileId',
                         'isArray': true,
                         'params': {
                             fileId: '@fileId'
