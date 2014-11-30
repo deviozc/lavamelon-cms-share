@@ -19,6 +19,13 @@ angular.module('CMS')
                     },
                     "update": {
                         method: "PUT",
+                    },
+                    "delete": {
+                        url: sharedConstants.ROOT_ENDPOINT + "/articles/:Id",
+                        method: "DELETE",
+                        'params': {
+                            Id: '@Id'
+                        }
                     }
                 }
             );

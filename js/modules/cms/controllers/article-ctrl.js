@@ -16,7 +16,7 @@ function ArticleListCtrl($rootScope, $scope, $state, Article, toaster) {
     });
     
     $scope.delete = function(article){
-        article.$delete().then(function(){
+        Article.delete({Id:article.id}, function(){
             toaster.pop('success', 'Deleted', article.en.title);
             $scope.articles =  Article.find({domain:$rootScope.domain});
         });
