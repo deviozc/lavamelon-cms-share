@@ -10,6 +10,7 @@ angular.module('CMS', [
     'ngUpload'
     ])
 .config(['$locationProvider', '$httpProvider', function ($locationProvider, $httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
     $httpProvider.interceptors.push(['$q', '$location', 'Auth', function($q, $location, Auth) {
          return {
 			'responseError': function(response) {
