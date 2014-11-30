@@ -9,7 +9,7 @@ angular.module('CMS')
 function ArticleListCtrl($scope, $state, Article, toaster) {
     var fileter = $state.current.data.articleFilter;
     $scope.doneLoading = false;
-	$scope.articles =  Article.find(function(data){
+	$scope.articles =  Article.find({domain:$rootScope.domain}, function(data){
         $scope.doneLoading = true;
     }, function(err){
         console.log('error');

@@ -10,9 +10,12 @@ angular.module('CMS')
                         method: "POST",
                     },
                     "find": {
-                        url: sharedConstants.ROOT_ENDPOINT + "/articles",
+                        url: sharedConstants.ROOT_ENDPOINT + "/sites/:domain/articles",
                         method: "GET",
-                        isArray: true
+                        isArray: true,
+                        'params': {
+                            domain: '@domain'
+                        }
                     },
                     "update": {
                         method: "PUT",
