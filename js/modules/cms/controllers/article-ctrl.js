@@ -2,11 +2,11 @@
  * Master Controller
  */
 angular.module('CMS')
-.controller('ArticleListCtrl', ['$scope', '$state', 'Article', 'toaster','Auth', ArticleListCtrl])
-.controller('ArticleCreateCtrl', ['$scope', '$state', 'Article', 'templates', 'toaster','Auth', ArticleCreateCtrl])
-.controller('ArticleEditCtrl', ['$scope', '$state', 'Article','articleToBeUpdated','templates', 'toaster', ArticleEditCtrl]);
+.controller('ArticleListCtrl', ['$rootScope','$scope', '$state', 'Article', 'toaster','Auth', ArticleListCtrl])
+.controller('ArticleCreateCtrl', ['$rootScope','$scope', '$state', 'Article', 'templates', 'toaster','Auth', ArticleCreateCtrl])
+.controller('ArticleEditCtrl', ['$rootScope','$scope', '$state', 'Article','articleToBeUpdated','templates', 'toaster', ArticleEditCtrl]);
 
-function ArticleListCtrl($scope, $state, Article, toaster) {
+function ArticleListCtrl($rootScope, $scope, $state, Article, toaster) {
     var fileter = $state.current.data.articleFilter;
     $scope.doneLoading = false;
 	$scope.articles =  Article.find({domain:$rootScope.domain}, function(data){
@@ -18,13 +18,13 @@ function ArticleListCtrl($scope, $state, Article, toaster) {
     $scope.delete = function(article){
         article.$delete().then(function(){
             toaster.pop('success', 'Deleted', article.en.title);
-            $scope.articles =  Article.find();
+            $scope.articles =  Article.find({domain:$rootScope.domain});
         });
     };
 
 }
 
-function ArticleCreateCtrl($scope, $state, Article, templates, toaster, Auth) {
+function ArticleCreateCtrl($rootScope,$scope, $state, Article, templates, toaster, Auth) {
     var fileter = $state.current.data.articleFilter;
     $scope.templates = templates;
 	$scope.article = {
@@ -43,7 +43,7 @@ function ArticleCreateCtrl($scope, $state, Article, templates, toaster, Auth) {
     
 }
 
-function ArticleEditCtrl($scope, $state, Article, articleToBeUpdated, templates, toaster) {
+function ArticleEditCtrl($rootScope, $scope, $state, Article, articleToBeUpdated, templates, toaster) {
     $scope.article = articleToBeUpdated;
     $scope.templates = templates;
     $scope.update = function(){
