@@ -6,7 +6,7 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" name="loginForm">
+                        <form role="form" name="loginForm" ng-submit="login()">
                             <fieldset>
                                 <div class="form-group">
                                     <input required class="form-control" ng-model="credentials.email" placeholder="E-mail" name="email" type="email" autofocus="">
@@ -21,7 +21,7 @@
                                     </label>
                                 </div> -->
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a class="btn btn-lg btn-info btn-block" ng-disabled="loginForm.$invalid" ng-click="login()">Login</a>
+                                <input ng-disabled="loginForm.$invalid" class="btn btn-lg btn-info btn-block" type="submit" id="submit" value="Login" />
                             </fieldset>
                         </form>
                     </div>
