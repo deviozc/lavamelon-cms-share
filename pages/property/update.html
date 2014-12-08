@@ -1,0 +1,141 @@
+<div class="container-fluid">
+   <div class="row">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading overflow-hidden-wrapper">
+                        <h3 class="panel-title pull-left">Edit property</h3>
+                        <a ui-sref="main.property" class="btn btn-primary pull-right btn-xs"><i class="fa fa-arrow-left"></i> Go back</a>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" class="form-horizontal" ng-submit="update()">
+                            <div class="row">
+                            <fieldset class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="status" class="col-sm-2 control-label">Type:</label>
+                                    <div class="col-sm-10">
+                                    <select  class="form-control" ng-model="property.type" ng-options="type for type in typeList">
+                                        <option value="">-- choose a type --</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="listingPrice" class="col-sm-2 control-label">
+                                        Price:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="listingPrice" type="text" ng-model="property.listingPrice">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address" class="col-sm-2 control-label">
+                                        Address:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="address" type="text" ng-model="property.address">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area" class="col-sm-2 control-label">
+                                        Area:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="area" type="text" ng-model="property.area">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city" class="col-sm-2 control-label">
+                                        City:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="city" type="text" ng-model="property.city">
+                                        </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="postalCode" class="col-sm-2 control-label">
+                                       Postal Code:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="postalCode" type="text" ng-model="property.postalCode">
+                                        </div>
+
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="houseNumber" class="col-sm-2 control-label">
+                                        House number:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="houseNumber" type="text" ng-model="property.houseNumber">
+                                        </div>
+
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="listAgentURL" class="col-sm-2 control-label">
+                                        Agent URL :
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="listAgentURL" type="text" ng-model="property.listAgentURL">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="listAgentName" class="col-sm-2 control-label">
+                                        Agent Name:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="listAgentName" type="text" ng-model="property.listAgentName">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="propertyType" class="col-sm-2 control-label">
+                                        Property Type:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="propertyType" type="text" ng-model="property.propertyType">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="totalFloorSize" class="col-sm-2 control-label">
+                                        Total Floor Size:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="totalFloorSize" type="text" ng-model="property.totalFloorSize">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="totalBedroom" class="col-sm-2 control-label">
+                                        Total Bedroom:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="totalBedroom" type="text" ng-model="property.totalBedroom">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="typeOfDwelling" class="col-sm-2 control-label">
+                                        Type of Dwelling:
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="typeOfDwelling" type="text" ng-model="property.typeOfDwelling">
+                                    </div>
+                                </div>
+                                
+                            </fieldset>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                 <input class="btn btn-primary btn-lg center-block" type="submit" id="submit" value="Submit" />
+                            </div>
+                          
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

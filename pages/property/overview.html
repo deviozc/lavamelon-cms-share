@@ -1,0 +1,36 @@
+<div class="container-fluid">
+   <div class="row">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading overflow-hidden-wrapper">
+                        <h3 class="panel-title pull-left">Property overview</h3>
+                        <a class="btn btn-primary pull-right btn-xs" ui-sref="main.propertyAdd"><i class="fa fa-plus"></i> Add property</a>
+                    </div>
+                    <div class="panel-body" >
+                        
+                        <div class="row">
+                            <input type="text" placeholder="MLS number" ng-model="data.mls" /> 
+                            <button class="btn btn-primary btn-xs" ng-click="searchByMls()">Search</button>
+                        </div><hr/>
+                        <rd-loading ng-hide="doneLoading"></rd-loading>
+                        <div ng-show="doneLoading">
+                        <p ng-show="properties.length === 0">No content available</p>
+                        <ul class="list-group">
+                          <li ng-repeat="property in properties" class="list-group-item overflow-hidden-wrapper">
+                              <div class="pull-left">     
+                                  <p>Address: {{property.fullAddress}}, {{property.city}}</p>
+                                  <p>MLS#: {{property.mlsNumber}}</p>
+                              </div>
+                              <div class="btn-group pull-right ">
+                                  <a ui-sref="main.propertyUpdate({id: property.id})" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
+                                  <a class="btn btn-danger btn-sm" ng-click="delete(property)"><i class="fa fa-trash"></i> Delete</a>
+                              </div>
+                            </li>
+                        </ul>
+                       </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+

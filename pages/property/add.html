@@ -1,0 +1,52 @@
+<div class="container-fluid">
+   <div class="row">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading overflow-hidden-wrapper">
+                        <h3 class="panel-title pull-left">Add news</h3>
+                        <a ui-sref="main.news" class="btn btn-primary pull-right btn-xs"> <i class="fa fa-arrow-left"></i> Go back</a>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" ng-submit="add()">
+                           <div class="row">
+                            <h4>Pick a template</h4>
+                            <fieldset >
+                                <select  class="form-control" ng-model="article.template" ng-options="template for template in templates">
+                                    <option value="">-- choose a template --</option>
+                                </select>
+                            </fieldset>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                            <fieldset class="col-md-6 col-sm-12 col-xs-12">
+                                <h4>English</h4>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Title" name="en.title" type="text" ng-model="article.en.title" autofocus="">
+                                </div>
+                            
+                                <div text-angular row="3" placeholder="Body" ng-model="article.en.body"></div>
+                                
+                            </fieldset>
+                            
+                            <fieldset class="col-md-6 col-sm-12 col-xs-12">
+                                <h4>中文</h4>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="标题" name="zh.title" type="text" ng-model="article.zh.title">
+                                </div>
+                                
+                                <div text-angular placeholder="内容" ng-model="article.zh.body"></div>
+                                
+                            </fieldset>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                 <input class="btn btn-primary btn-lg center-block" type="submit" id="submit" value="Submit" />
+                            </div>
+                          
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
