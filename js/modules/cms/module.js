@@ -11,6 +11,8 @@ angular.module('CMS', [
     ])
 .config(['$locationProvider', '$httpProvider', function ($locationProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.interceptors.push(['$q', '$location', 'Auth', function($q, $location, Auth) {
          return {
 			'responseError': function(response) {
