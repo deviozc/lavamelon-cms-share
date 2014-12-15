@@ -2,11 +2,15 @@
    <div class="row">
 <form action="http://www.lavamelon.com:1337/files/upload" ng-upload="completed(content)" class="form-inline">
     <div class="form-group">
-     <input type="file" name="file"></input>
+     <input type="file" name="file" />
      <input class="hidden" type="text" name="domain" ng-model="domain" />
+     <input type="radio" name="type" value="article" checked>Article
+        <br>
+     <input type="radio" name="type" value="property">Property
+    
      </div>
      <input type="submit" class="btn btn-info" value="Submit" ng-disabled="$isLoading"  />
-   </form>
+</form>
 <hr/>
 
 
