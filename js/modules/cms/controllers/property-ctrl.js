@@ -3,7 +3,7 @@
  */
 angular.module('CMS')
 .controller('PropertyListCtrl', ['$rootScope','$scope', '$state', 'Property', 'toaster','Auth', PropertyListCtrl])
-.controller('PropertyCreateCtrl', ['$rootScope','$scope', '$state', 'Property', 'templates', 'toaster','Auth', PropertyCreateCtrl])
+.controller('PropertyCreateCtrl', ['$rootScope','$scope', '$state', 'Property', 'toaster', PropertyCreateCtrl])
 .controller('PropertyEditCtrl', ['$rootScope','$scope', '$state', 'Property','propertyToBeUpdated', 'toaster', PropertyEditCtrl]);
 
 function PropertyListCtrl($rootScope, $scope, $state, Property, toaster) {
@@ -38,20 +38,16 @@ function PropertyListCtrl($rootScope, $scope, $state, Property, toaster) {
 
 }
 
-function PropertyCreateCtrl($rootScope,$scope, $state, Property, templates, toaster, Auth) {
-    var fileter = $state.current.data.articleFilter;
-    $scope.templates = templates;
-	$scope.article = {
-        domain: Auth.getCurrentUser().sites[0].domain,
-        section: fileter
+function PropertyCreateCtrl($rootScope, $scope, $state, Property, toaster) {
+    $scope.typeList = ['sold','for_sale'];
+    
+    $scope.property = {
+        domain: $rootScope.domain
     };
-    $scope.add = function () {
-        Article.create($scope.article, function (data) {
-            console.log(data);
-            toaster.pop('success', 'Added', data.en.title);
+    $scope.add = function(){
+        Property.create($scope.property, function(property){
             $state.go($state.current.data.parent);
-        }, function (res) {
-            console.log(res);
+            toaster.pop('success', 'Updated', 'Property has been added.');
         });
     };
     
