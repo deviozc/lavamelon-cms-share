@@ -1,8 +1,8 @@
 <div class="thumbnail">
       <img ng-src="{{imageSrc}}" />
       <div class="caption">
-        <h3>{{filename}}</h3>
+        <h4>{{filename}}</h4>
         <p ng-if="doneLoading">{{width}}px * {{height}}px</p>
-        <p><a href="#" class="btn btn-danger" ng-click="deleteImage($event)" role="button">Delete</a></p>
+        <p><a href="#" class="btn btn-danger btn-sm" ng-click="deleteImage($event)" role="button">Delete</a></p>
       </div>
     </div>

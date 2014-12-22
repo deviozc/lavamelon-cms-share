@@ -7,7 +7,7 @@ function thumbnail () {
         require: '^gallery',
         templateUrl: 'assets/shared/js/modules/cms/directives/partials/thumbnail.html',
         link: function($scope, iElm, iAttrs, galleryController){
-            $scope.imageSrc = iAttrs.imageSource;
+            $scope.imageSrc = 'http://'+iAttrs.imageSource;
             $scope.fileId = iAttrs.fileId;
             $scope.filename = iAttrs.fileName;
             $scope.doneLoading = false;

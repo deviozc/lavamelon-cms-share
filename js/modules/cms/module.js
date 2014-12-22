@@ -41,15 +41,6 @@ angular.module('CMS', [
             },
 			requireLogin: false
 		})
-        .state('main.imageManager', {
-            url: 'image-manager',
-            templateUrl: 'assets/shared/pages/image-manager.html',
-            controller: 'imageManagerCtrl',
-            data: {
-                title: 'Image Manager'  
-            },
-            requireLogin: true
-        })
 		.state('main.newUser', {
 			url: 'access/newuser',
             templateUrl: 'assets/shared/pages/access_control/add_user.html',
