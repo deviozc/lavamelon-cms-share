@@ -3,9 +3,9 @@
             <div>
 <form action="http://www.lavamelon.com:1337/files/upload" ng-upload="completed(content)" class="form-inline">
     <div class="form-group">
-     <input class="hidden" type="text" name="type" ng-model="model.type" />
-     <input class="hidden" type="text" name="domain" ng-model="model.domain" />
-     <input class="hidden" type="text" name="id" ng-model="model.id" />
+     <input class="hidden" type="text" name="type" ng-model="property.type" />
+     <input class="hidden" type="text" name="domain" ng-model="property.domain" />
+     <input class="hidden" type="text" name="id" ng-model="property.id" />
      <input type="file" name="file"  class/>
      </div>
      <input type="submit" class="btn btn-info btn-sm" value="Upload" ng-disabled="$isLoading"  />
@@ -19,8 +19,8 @@
                         <gallery>
                           <rd-loading ng-hide="doneLoading"></rd-loading>
                           <div class="row gallery" ng-show="doneLoading">
-                            <h3 ng-if="!model.images.length">No image yet</h3>
-                            <div class="col-sm-4 col-md-3" ng-repeat="img in model.images">
+                            <h3 ng-if="!property.images.length">No image yet</h3>
+                            <div class="col-sm-4 col-md-3" ng-repeat="img in property.images">
                               <thumbnail file-id="{{img.id}}" file-name="{{img.filename}}" image-source="{{img.url}}"></thumbnail>
                             </div>
                           </div>

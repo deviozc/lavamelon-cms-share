@@ -4,7 +4,7 @@
 angular.module('CMS')
 .controller('ArticleListCtrl', ['$rootScope','$scope', '$state', 'Article', 'toaster','Auth', ArticleListCtrl])
 .controller('ArticleCreateCtrl', ['$rootScope','$scope', '$state', 'Article', 'templates', 'toaster','Auth', ArticleCreateCtrl])
-.controller('ArticleEditCtrl', ['Image','$rootScope','$scope', '$state', 'Article','articleToBeUpdated','templates', 'toaster', ArticleEditCtrl]);
+.controller('ArticleEditCtrl', ['$rootScope','$scope', '$state', 'Article','articleToBeUpdated','templates', 'toaster', ArticleEditCtrl]);
 
 function ArticleListCtrl($rootScope, $scope, $state, Article, toaster) {
     var fileter = $state.current.data.articleFilter;
@@ -43,22 +43,16 @@ function ArticleCreateCtrl($rootScope,$scope, $state, Article, templates, toaste
     
 }
 
-function ArticleEditCtrl(Image,$rootScope, $scope, $state, Article, articleToBeUpdated, templates, toaster) {
-     $scope.model = {
-         domain : $rootScope.domain,
-         type:'article',
-         id:articleToBeUpdated.id,
-         images: []
-     };
+function ArticleEditCtrl($rootScope, $scope, $state, Article, articleToBeUpdated, templates, toaster) {
 
     var updateGallery = function(){
         $scope.doneLoading = false;
-            Image.get({domain:$scope.domain}, function(data){
+            Article.get({Id:articleToBeUpdated.id}, function(data){
                 $scope.doneLoading = true;
-                $scope.model.images = data;
+                $scope.article.images = data.images;
+                console.log($scope.article);
             });
     };
-    updateGallery();
     $scope.$on('done-image-upload', function(){
         updateGallery();
     });
@@ -66,8 +60,13 @@ function ArticleEditCtrl(Image,$rootScope, $scope, $state, Article, articleToBeU
     $scope.$on('image-deleted',function(){
         updateGallery();
     });
+    
     $scope.article = articleToBeUpdated;
+    $scope.article.domain = $rootScope.domain;
+    $scope.article.type='article';
+    
     $scope.templates = templates;
+    $scope.doneLoading = true;
     $scope.update = function(){
         $scope.article.$update({Id:$scope.article.id}).then(function(article){
             $state.go($state.current.data.parent);

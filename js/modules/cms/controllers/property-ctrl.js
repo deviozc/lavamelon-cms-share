@@ -4,7 +4,7 @@
 angular.module('CMS')
 .controller('PropertyListCtrl', ['$rootScope','$scope', '$state', 'Property', 'toaster','Auth', PropertyListCtrl])
 .controller('PropertyCreateCtrl', ['$rootScope','$scope', '$state', 'Property', 'toaster', PropertyCreateCtrl])
-.controller('PropertyEditCtrl', ['$rootScope','$scope', '$state', 'Property','propertyToBeUpdated', 'toaster','Image', PropertyEditCtrl]);
+.controller('PropertyEditCtrl', ['$rootScope','$scope', '$state', 'Property','propertyToBeUpdated', 'toaster', PropertyEditCtrl]);
 
 function PropertyListCtrl($rootScope, $scope, $state, Property, toaster) {
     $scope.doneLoading = false;
@@ -53,28 +53,25 @@ function PropertyCreateCtrl($rootScope, $scope, $state, Property, toaster) {
     
 }
 
-function PropertyEditCtrl($rootScope, $scope, $state, Property, propertyToBeUpdated, toaster, Image) {
+function PropertyEditCtrl($rootScope, $scope, $state, Property, propertyToBeUpdated, toaster) {
     console.log(propertyToBeUpdated);
-     $scope.model = {
-         domain : $rootScope.domain,
-         type:'property',
-         id:propertyToBeUpdated.id,
-         images: []
-     };
+     
     var updateGallery = function(){
         $scope.doneLoading = false;
-            Image.get({domain:$scope.domain}, function(data){
-                $scope.doneLoading = true;
-                $scope.model.images = data;
-            });
+        Property.get({Id: propertyToBeUpdated.id}, function(data){
+            console.log(data);
+            $scope.property.images = data.images;
+            $scope.doneLoading = true;
+        });
     };
-    updateGallery();
     $scope.$on('done-image-upload', function(){
         updateGallery();
+        console.log('ddd');
     });
 
     $scope.$on('image-deleted',function(){
         updateGallery();
+        console.log('eee');
     });
     
     
@@ -83,6 +80,9 @@ function PropertyEditCtrl($rootScope, $scope, $state, Property, propertyToBeUpda
     
     
     $scope.property = propertyToBeUpdated;
+    $scope.property.domain = $rootScope.domain;
+    $scope.property.type = 'property';
+    $scope.doneLoading = true;
     $scope.typeList = ['sold','for_sale'];
     $scope.update = function(){
         $scope.property.$update({Id:$scope.property.id}).then(function(property){
